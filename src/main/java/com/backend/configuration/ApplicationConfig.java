@@ -17,7 +17,9 @@ package com.backend.configuration;
 	import org.springframework.orm.hibernate4.LocalSessionFactoryBuilder;
 	import org.springframework.transaction.annotation.EnableTransactionManagement;
 
+import com.backend.model.Category;
 import com.backend.model.Product;
+import com.backend.model.Supplier;
 import com.backend.model.Users;
 
 
@@ -35,7 +37,7 @@ import com.backend.model.Users;
 			driverManagerDataSource.setUsername("sa");
 			driverManagerDataSource.setPassword("sa");
 			driverManagerDataSource.setDriverClassName("org.h2.Driver");
-			driverManagerDataSource.setUrl("jdbc:h2:tcp://localhost/~/test");
+			driverManagerDataSource.setUrl("jdbc:h2:tcp://localhost/~/project2");
 			return driverManagerDataSource;
 		}
 		private Properties getProperties()
@@ -43,7 +45,7 @@ import com.backend.model.Users;
 			Properties properties=new Properties();
 			properties.setProperty("hibernate.show_sql", "true");
 			properties.setProperty("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-			properties.setProperty("hibernate.hbm2ddl.auto", "create");
+			properties.setProperty("hibernate.hbm2ddl.auto", "update");
 			return properties;
 		}
 		@Autowired
@@ -54,6 +56,8 @@ import com.backend.model.Users;
 			 localSessionFactoryBuilder.addProperties(getProperties());
 			localSessionFactoryBuilder.addAnnotatedClasses(Users.class);
 			localSessionFactoryBuilder.addAnnotatedClasses(Product.class);
+			localSessionFactoryBuilder.addAnnotatedClasses(Category.class);
+			localSessionFactoryBuilder.addAnnotatedClasses(Supplier.class);
 			 return localSessionFactoryBuilder.buildSessionFactory();
 		}
 		@Autowired
